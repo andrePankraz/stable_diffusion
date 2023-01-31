@@ -7,6 +7,9 @@ This file was created by ]init[ AG 2023.
 Setup Docker container for [Stable Diffusion Web UI](https://github.com/AUTOMATIC1111/stable-diffusion-webui).
 This container encapsulates all necessary Python and CUDA components in a Docker Container.
 
+- Check [Features](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Features) for a short description of the Web-UI.
+- Check [PromptHero](https://prompthero.com/stable-diffusion-prompts) for prompt suggestions.
+
 The tests are performed in a Docker container that also works in the Windows Subsystem for Linux (WSL).
 An NVIDIA graphics card with at least 8 GB VRAM is recommended, depending on the models used.
 CUDA is part of the Docker image, only the NVIDIA graphics driver needs to be installed.
@@ -20,8 +23,9 @@ Docker must have CUDA enabled (e.g. for WSL see https://docs.nvidia.com/cuda/wsl
       $ git clone git@github.com:andrePankraz/stable_diffusion.git
       $ cd stable_diffusion
 
-- Download a Stable Diffusion Model into folder 'stable_diffusion/models/Stable-diffusion'
-  - e.g.: https://huggingface.co/stabilityai/stable-diffusion-2-1/blob/main/v2-1_768-ema-pruned.ckpt
+- Download a Stable Diffusion Model into folder 'stable_diffusion/models/Stable-diffusion', e.g.:
+  - 2.1 https://huggingface.co/stabilityai/stable-diffusion-2-1/blob/main/v2-1_768-ema-pruned.ckpt
+  - 1.5 https://huggingface.co/runwayml/stable-diffusion-v1-5/blob/main/v1-5-pruned-emaonly.ckpt
 
 ## Start for usage
 
