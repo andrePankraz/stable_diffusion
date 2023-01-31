@@ -30,7 +30,7 @@ Docker must have CUDA enabled (e.g. for WSL see https://docs.nvidia.com/cuda/wsl
       $ export DOCKER_BUILDKIT=1
       $ docker compose up
 
-  - Will take some time at first start (images & packages are downloaded, >10 GB)
+  - Will take some time at first start (>10 GB images & packages are downloaded, building can take >10 minutes)
   - Wait & check if up and running
 - Go to URL: http://localhost:7860/
   - Some functions will take some time at first usage (models are downloaded, several GB)
@@ -42,7 +42,7 @@ Docker must have CUDA enabled (e.g. for WSL see https://docs.nvidia.com/cuda/wsl
       $ export DOCKER_BUILDKIT=1
       $ docker compose --env-file docker/.envs/dev.env up
 
-  - Will take some time at first start (images & packages are downloaded, >10 GB)
+  - Will take some time at first start (>10 GB images & packages are downloaded, building can take >10 minutes)
   - Wait & check if up and running
 - Install [VS Code](https://code.visualstudio.com/)
   - Install Extension

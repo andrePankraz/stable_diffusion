@@ -11,7 +11,7 @@ RUN apt-get update && \
 # RUN --mount=type=cache,id=custom-pip,target=/root/.cache/pip pip3 install --pre \
 #     torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/nightly/cu117
 
-# Install optional XFormers for speedup, but uses very old CUDA version - skip for now:
+# Install optional XFormers for speedup (but uses old CUDA version - skip for now):
 # Install miniconda for XFormers (see https://github.com/facebookresearch/xformers):
 # ENV CONDA_DIR /opt/conda
 # RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
@@ -20,23 +20,20 @@ RUN apt-get update && \
 # ENV PATH=$CONDA_DIR/bin:$PATH
 # RUN conda install xformers -c xformers/label/dev
 
-RUN useradd -ms /bin/bash docker && echo "docker:docker" | chpasswd && adduser docker sudo && \
-    mkdir /opt/stable-diffusion-webui && \
-    chown docker:docker /opt/stable-diffusion-webui
+COPY requirements.txt requirements.txt
+RUN --mount=type=cache,id=custom-pip,target=/root/.cache/pip pip3 install -r requirements.txt
+
+RUN useradd -ms /bin/bash docker && echo "docker:docker" | chpasswd && adduser docker sudo
 USER docker
 WORKDIR /opt/stable-diffusion-webui
 
 RUN git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui.git .
 RUN python3 -c 'from launch import prepare_environment; prepare_environment()' --skip-torch-cuda-test
 
-COPY requirements.txt requirements.txt
-RUN --mount=type=cache,id=custom-pip,target=/root/.cache/pip pip3 install -r requirements.txt
-
 FROM base AS dev
+WORKDIR /opt/stable_diffusion/
 COPY requirements-dev.txt requirements-dev.txt
 RUN --mount=type=cache,id=custom-pip,target=/root/.cache/pip pip3 install -r requirements-dev.txt
-WORKDIR /opt/stable_diffusion/
 
 FROM base AS local
-WORKDIR /opt/stable-diffusion-webui
 CMD ["python3", "-c", "from launch import start; start()", "--listen", "--no-half"]
