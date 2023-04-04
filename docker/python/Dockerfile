@@ -36,4 +36,4 @@ COPY requirements-dev.txt requirements-dev.txt
 RUN --mount=type=cache,id=custom-pip,target=/root/.cache/pip pip3 install -r requirements-dev.txt
 
 FROM base AS local
-CMD ["python3", "-c", "from launch import start; start()", "--listen", "--no-half"]
+CMD ["python3", "-c", "from launch import start; start()", "--listen", "--enable-insecure-extension-access"]
